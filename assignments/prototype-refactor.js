@@ -196,12 +196,12 @@ const hero = new Hero({
   language: "eslakiv"
 });
 
-//Begina battle -----------------------------------------------------
+//Begins battle -----------------------------------------------------
 
-console.log("**************************************");
-console.log("************* Begin the Dual *********");
-console.log("**************************************");
-while (villain.healthPoints > 0 && hero.healthPoints > 0) {
-  console.log(villain.attack(hero));
-  console.log(hero.attack(villain));
-}
+// console.log("**************************************");
+// console.log("************* Begin the Dual *********");
+// console.log("**************************************");
+// while (villain.healthPoints > 0 && hero.healthPoints > 0) {
+//   console.log(villain.attack(hero));
+//   console.log(hero.attack(villain));
+// }
