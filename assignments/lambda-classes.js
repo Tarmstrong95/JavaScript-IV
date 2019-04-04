@@ -20,10 +20,16 @@ class Instructor extends Person {
   demo(subject) {
     console.log(`Today we are learning about ${subject}`);
   }
-  grade(student, subject, studGrade) {
-    let rand = Math.floor(Math.random(0, 100));
-    console.log(rand)
-    console.log(`${student.name} receives a ${student._grade} on ${subject}.`);
+  grade(student, subject) {
+    let rand = Math.ceil(Math.random() * 100);
+    if(student._grade == 100){
+        console.log(`${student.name} receives a ${student._grade - rand} on ${subject}.`);
+        student._grade -= rand;
+    }else{
+        rand = Math.ceil(Math.random() * 20);
+        console.log(`${this.name} has regraded ${student.name}'s project to ${student._grade + rand}.`);
+        student._grade += rand;
+    }
   }
 }
 
@@ -41,13 +47,13 @@ class PM extends Instructor {
   }
 }
 
-class Student extends Instructor {
+class Student extends Person {
   constructor(attr) {
     super(attr);
     this.previousBackground = attr.previousBackground;
     this.className = attr.className;
     this.favSubjects = attr.favSubjects;
-    this._grade = attr.grade;
+    this._grade = attr._grade;
   }
   listsSubjects() {
     this.favSubjects.forEach(e => console.log(e));
@@ -57,6 +63,12 @@ class Student extends Instructor {
   }
   sprintChallenge(subject) {
     console.log(`${this.name} has begun sprint challenge on ${subject}`);
+  }
+  graduate(instructor){
+    while(this._grade < 70){
+        instructor.grade(this)
+    }
+    console.log(`He graduates, with a grade of ${this._grade}!`)
   }
 }
 
@@ -87,38 +99,37 @@ const triston = new Student({
   age: 23,
   location: "Tennessee",
   gender: "Male",
-  specialty: "JavaScript",
-  favLanguage: "JavaScript",
-  catchPhrase: "You people are too sensitive!",
-  gradClassName: "Web19",
-  favInstructor: "Enoka Jaona",
   previousBackground: "Construction & Law Enforcement",
   className: "Web19: Roxanne",
   favSubjects: ["HTML", "CSS", "Javascript", "C#"],
-  defGrade: 100
+  _grade: 100
 });
 
 console.log(fred);
 console.log(enoka);
 console.log(triston);
 console.log("----------------");
-console.log("------------");
-console.log("-------- Instructor");
+console.log("----- Instructor");
+console.log("----------------");
+
 fred.speak();
 fred.demo(triston.favSubjects[2]);
-fred.grade(triston, triston.favSubjects[2]);
 
 console.log("----------------");
-console.log("------------");
-console.log("-------- PM");
+console.log("------------- PM");
+console.log("----------------");
+
 enoka.speak();
 enoka.standUp("Squad_Enoka");
-enoka.debugsCode(triston, triston.favSubjects[2]);
 
 console.log("----------------");
-console.log("------------");
 console.log("-------- Student");
+console.log("----------------");
+
 triston.speak();
 triston.listsSubjects();
 triston.PRAssignment(triston.favSubjects[2]);
 triston.sprintChallenge(triston.favSubjects[2]);
+enoka.debugsCode(triston, triston.favSubjects[2]);
+fred.grade(triston, triston.favSubjects[2]);
+triston.graduate(fred)
